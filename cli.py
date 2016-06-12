@@ -8,13 +8,14 @@ from folder_mirror import analyze
 def main(argv=None):
     parser = argparse.ArgumentParser(description='Generate dry-run copy plans from two directory inventory listings')
     parser.add_argument('path', help='Input data file, or - for standard input')
+    parser.add_argument('--pretty', action='store_true', help='Indent JSON output')
     args = parser.parse_args(argv)
     if args.path == '-':
         data = sys.stdin.read()
     else:
         with open(args.path, encoding='utf-8') as f:
             data = f.read()
-    print(json.dumps(analyze(data), sort_keys=True))
+    print(json.dumps(analyze(data), sort_keys=True, indent=2 if args.pretty else None))
     return 0
 
 if __name__ == '__main__':
