@@ -9,3 +9,12 @@ class AnalyzeTest(unittest.TestCase):
         self.assertTrue(result)
 
 if __name__ == '__main__': unittest.main()
+
+class EmptyInputTest(unittest.TestCase):
+    def test_empty_input(self):
+        # Empty input is either a valid empty dataset or an explicit error.
+        try:
+            output=analyze('')
+            self.assertIsInstance(output, dict)
+        except (ValueError, TypeError):
+            pass
