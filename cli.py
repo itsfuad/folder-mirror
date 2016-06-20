@@ -8,6 +8,7 @@ from folder_mirror import analyze
 def main(argv=None):
     parser = argparse.ArgumentParser(description='Generate dry-run copy plans from two directory inventory listings')
     parser.add_argument('path', help='Input data file, or - for standard input')
+    parser.add_argument('--pick', metavar='KEY', help='Print one top-level result field')
     parser.add_argument('--pretty', action='store_true', help='Indent JSON output')
     args = parser.parse_args(argv)
     if args.path == '-':
@@ -15,7 +16,11 @@ def main(argv=None):
     else:
         with open(args.path, encoding='utf-8') as f:
             data = f.read()
-    print(json.dumps(analyze(data), sort_keys=True, indent=2 if args.pretty else None))
+    output = analyze(data)
+    if args.pick:
+        if args.pick not in output: parser.error('Unknown output field: ' + args.pick)
+        output = output[args.pick]
+    print(json.dumps(output, sort_keys=True, indent=2 if args.pretty else None))
     return 0
 
 if __name__ == '__main__':
