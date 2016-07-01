@@ -16,7 +16,10 @@ def main(argv=None):
     else:
         with open(args.path, encoding='utf-8') as f:
             data = f.read()
-    output = analyze(data)
+    try:
+        output = analyze(data)
+    except (ValueError, TypeError) as error:
+        parser.exit(2, 'Invalid input: ' + str(error) + '\n')
     if args.pick:
         if args.pick not in output: parser.error('Unknown output field: ' + args.pick)
         output = output[args.pick]
