@@ -18,3 +18,9 @@ class EmptyInputTest(unittest.TestCase):
             self.assertIsInstance(output, dict)
         except (ValueError, TypeError):
             pass
+
+class SemanticContractTest(unittest.TestCase):
+    def test_actual_results(self):
+        with open("examples/input.txt", encoding="utf-8") as stream:
+            out=analyze(stream.read())
+        self.assertEqual(out['copy'], ['data/report.csv']); self.assertEqual(out['missing_count'], 1)
