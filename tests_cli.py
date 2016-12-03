@@ -14,3 +14,7 @@ class CliTest(unittest.TestCase):
     def test_unknown_key(self):
         result=subprocess.run([sys.executable,'cli.py','examples/input.txt','--pick','not_a_field'],stdout=subprocess.PIPE,stderr=subprocess.PIPE)
         self.assertNotEqual(result.returncode,0)
+
+    def test_version_flag(self):
+        result=subprocess.check_output([sys.executable,'cli.py','--version'])
+        self.assertIn(b'0.2.0',result)
