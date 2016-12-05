@@ -12,3 +12,7 @@ python3 -m unittest discover -p 'test*.py'
 ```
 
 Pass `-` to read standard input, `--pick KEY` for one field, and `--out PATH` to save JSON.
+
+## Maintenance
+
+Version 0.2 includes a small usability improvement and additional coverage for everyday workflows. No network dependencies are required.
